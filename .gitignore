@@ -1,0 +1,23 @@
+# Windows and editor files
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+
+# Reports can contain environment-specific data
+*.html
+*.xml
+*.evtx
+
+# Never commit virtual machines, installation media, or secrets
+*.vmdk
+*.vmem
+*.vmsn
+*.vmss
+*.iso
+*.msi
+*.key
+*.pfx
+*.cer
+*.env
+
