@@ -21,16 +21,16 @@ This repository documents both the working configuration and the troubleshooting
 | System | Configuration |
 |---|---|
 | `DC01` | Windows Server 2022; AD DS, DNS, DHCP, File Server |
-| `CLIENT01` | Windows 11 Enterprise LTSC Evaluation; domain joined |
+| `CLIENT01` | Windows 11 IoT Enterprise LTSC Evaluation (24H2); domain joined |
 | Domain | `LamHomeLab.local` |
-| Network | VMware VMnet1 host-only, `192.168.10.0/24` |
+| Network | VMware VMnet1 host-only (VMware DHCP off); lab subnet `192.168.10.0/24` served by Windows DHCP |
 | DC/DNS | `192.168.10.10` |
 | DHCP scope | `192.168.10.100`–`192.168.10.200` |
 | Client lease | `192.168.10.100` |
 
 ```mermaid
 flowchart TB
-    Host["VMware Workstation host"] --> VMnet["VMnet1 / LAN-Domain<br/>Host-only: 192.168.10.0/24"]
+    Host["VMware Workstation host"] --> VMnet["VMnet1 / LAN-Domain<br/>Host-only, VMware DHCP off<br/>Lab subnet 192.168.10.0/24"]
     VMnet --> DC["DC01<br/>192.168.10.10<br/>AD DS · DNS · DHCP · File Server"]
     VMnet --> Client["CLIENT01<br/>DHCP: 192.168.10.100<br/>Domain joined"]
 ```
@@ -51,13 +51,13 @@ flowchart LR
     NTFS --> Result["Access granted"]
 ```
 
-![Active Directory domain overview](screenshots/01-active-directory/02-aduc-domain-overview.png)
+![OU structure in Active Directory Users and Computers](screenshots/01-active-directory/01-ou-structure-hr-users.png)
 
 ### File services
 
 The Finance share is stored at `C:\CompanyShares\Finance`, published as `\\DC01\Finance`, and mapped as drive `F:` for authorised Finance users. Validation confirmed that a Finance user could access the share while an IT user was denied.
 
-![Finance permissions](screenshots/03-file-server/04-finance-advanced-security.png)
+![Finance share permissions](screenshots/03-file-server/02-finance-share-permissions.png)
 
 ### Group Policy
 
@@ -66,7 +66,7 @@ The Finance share is stored at `C:\CompanyShares\Finance`, published as `\\DC01\
 - 7-Zip MSI assigned through Computer Configuration
 - Password and account lockout controls through domain policy
 
-![Finance drive mapped](screenshots/04-gpo-drive-mapping/03-finance-drive-mapped-f.png)
+![Item-level targeting for Finance Users](screenshots/04-gpo-drive-mapping/01-item-level-targeting-finance-users.png)
 
 ![Control Panel blocked](screenshots/05-gpo-control-panel/05-control-panel-blocked-validation.png)
 
@@ -78,18 +78,18 @@ Windows Server DHCP supplies client configuration on the isolated host-only segm
 
 ## Validation summary
 
-| Area | Validation |
-|---|---|
-| Domain | `CLIENT01` joined `LamHomeLab.local` |
-| DNS | Forward lookup zone present; hostname lookup and ping tested |
-| File server | Finance access allowed; unauthorised IT access denied |
-| Drive mapping | Finance share appeared as `F:` |
-| Group Policy | `gpresult` used; Control Panel restriction verified |
-| Software | 7-Zip installation verified on the client |
-| Account security | Lockout reproduced; account unlocked using GUI and PowerShell |
-| DHCP | Scope, binding, options, lease, and client address validated |
+| Area | Validation | Screenshot evidence |
+|---|---|---|
+| Domain | `CLIENT01` joined `LamHomeLab.local` | Join dialog; domain account signed in on the client |
+| DNS | Forward lookup zone present; hostname lookup and ping tested | Zones and records; command output not captured |
+| File server | Finance access allowed; unauthorised IT access denied | Folder structure and share permissions; test results not captured |
+| Drive mapping | Finance share appeared as `F:` | Item-level targeting and `gpresult`; `F:` not captured |
+| Group Policy | `gpresult` used; Control Panel restriction verified | Yes |
+| Software | 7-Zip installation verified on the client | Installed app; GPO package settings not captured |
+| Account security | Lockout reproduced; account unlocked using GUI and PowerShell | Lockout screen, ADUC unlock, `Search-ADAccount`; `Unlock-ADAccount` output not captured |
+| DHCP | Scope, binding, options, lease, and client address validated | Yes |
 
-See the [evidence index](docs/validation.md) for the screenshots supporting each result.
+See the [evidence index](docs/validation.md) for the screenshots supporting each result and the steps that were performed without a screenshot.
 
 ## Troubleshooting case studies
 
@@ -119,6 +119,7 @@ Read the detailed [lessons learned](docs/lessons-learned.md).
 - The domain uses the `.local` namespace for lab purposes.
 - High availability, backups, monitoring, patch management, PKI, and cloud integration are outside the current scope.
 - A USB restriction policy was explored but is not presented as completed because it was not fully validated.
+- Some validation steps (marked in the table above) were performed without a saved screenshot, so the repository does not include evidence for them.
 
 ## Author note
 

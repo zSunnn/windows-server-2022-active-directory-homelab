@@ -19,7 +19,6 @@ The drive did not appear after `gpupdate /force` and a sign-out/sign-in cycle. T
 
 ## Result
 
-The Finance drive appeared as `F:` for the Finance user.
+The Finance drive appeared as `F:` for the Finance user. `gpresult` on `CLIENT01` lists the GPO as applied; an Explorer screenshot of the `F:` drive is not included.
 
-![Mapped Finance drive](../screenshots/04-gpo-drive-mapping/03-finance-drive-mapped-f.png)
-
+![gpresult listing Finance - Map Network Drive](../screenshots/05-gpo-control-panel/04-gpresult-before-read-fix.png)

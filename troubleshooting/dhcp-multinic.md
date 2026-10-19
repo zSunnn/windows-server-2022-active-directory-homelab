@@ -13,7 +13,9 @@ Observed symptoms:
 
 ![Client APIPA address](../screenshots/09-troubleshooting/01-client-apipa-address.png)
 
-![No DHCP discovers](../screenshots/09-troubleshooting/02-dhcp-statistics-no-discovers.png)
+![DHCP renew timeout](../screenshots/09-troubleshooting/05-dhcp-renew-timeout.png)
+
+![No DHCP discovers](../screenshots/09-troubleshooting/06-dhcp-statistics-no-discovers.png)
 
 ## Investigation
 
@@ -23,7 +25,13 @@ Observed symptoms:
 4. Compared the VM adapters and broadcast domains.
 5. Removed the secondary NAT adapter and retained only VMnet1 host-only.
 
+![DHCP service running](../screenshots/09-troubleshooting/02-dhcp-service-running.png)
+
 ![DHCP binding check](../screenshots/09-troubleshooting/04-dhcp-binding-check.png)
+
+With a temporary static address the client could ping DC01 (first attempt fails, then 4 of 4 replies), which separated the problem from the server configuration:
+
+![Static IP connectivity test](../screenshots/09-troubleshooting/03-static-ip-restored-connectivity.png)
 
 ## Root cause
 
@@ -36,9 +44,10 @@ The secondary adapter introduced an unintended network path and complicated DHCP
 - Kept VMware DHCP disabled on VMnet1.
 - Renewed the client configuration from Windows Server DHCP.
 
+The screenshots capture the failing and final states. The adapter-removal step itself was not captured.
+
 ## Result
 
 `CLIENT01` obtained `192.168.10.100`, and the lease appeared on DC01.
 
 ![Successful DHCP lease](../screenshots/08-dhcp-networking/05-dhcp-lease-success-client01.png)
-

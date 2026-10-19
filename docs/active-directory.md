@@ -32,7 +32,8 @@ Known lab accounts include `lamhoa` in IT and `nguyenlux` and `hnbui` in Finance
 
 `GG_ControlPanel_Restricted` contains the Finance, HR, Marketing, and Sales groups. `IT Users` is excluded so that IT retains access to administrative tools.
 
-![Departmental objects](../screenshots/01-active-directory/02-aduc-domain-overview.png)
+![OU structure with the HR OU expanded](../screenshots/01-active-directory/01-ou-structure-hr-users.png)
 
-![Restricted group membership](../screenshots/01-active-directory/03-policy-group-membership.png)
+![Restricted group membership](../screenshots/05-gpo-control-panel/03-restricted-group-members.png)
 
+![Built-in security groups](../screenshots/01-active-directory/02-aduc-builtin-groups.png)

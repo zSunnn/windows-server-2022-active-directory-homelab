@@ -25,5 +25,14 @@ gpresult /r
 gpresult /h report.html
 ```
 
+`gpresult /r` on `CLIENT01` listed `Finance - Map Network Drive` under Applied Group Policy Objects, but not the Control Panel policy until the Read permission was corrected (see the [case study](../troubleshooting/gpo-read-permission.md)):
+
+![gpresult on CLIENT01](../screenshots/05-gpo-control-panel/04-gpresult-before-read-fix.png)
+
+For the IT user, `whoami /groups` shows `IT Users` only, so the user is outside `GG_ControlPanel_Restricted`:
+
+![whoami /groups for the IT user](../screenshots/05-gpo-control-panel/06-whoami-groups-it-user.png)
+
 The Control Panel case demonstrated that a target must be in the correct OU/scope and must be able to read the GPO before policy processing can apply it.
 
+The Default Domain Policy lockout values and the Software Installation package settings are not included as screenshots.
