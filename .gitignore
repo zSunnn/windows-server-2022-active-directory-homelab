@@ -6,6 +6,7 @@ Desktop.ini
 
 # Reports can contain environment-specific data
 *.html
+!/index.html
 *.xml
 *.evtx
 
