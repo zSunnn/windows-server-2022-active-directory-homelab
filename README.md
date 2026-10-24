@@ -4,7 +4,7 @@ An enterprise-style Windows infrastructure lab built in VMware Workstation to de
 
 This repository documents both the working configuration and the troubleshooting process. All names, addresses, and screenshots relate to an isolated lab environment.
 
-**Visual walkthrough:** [`index.html`](index.html) is a single-page tour of the lab with the architecture diagram, build timeline, access model, case studies, and clickable screenshots. Open it locally, or view it on [GitHub Pages](https://zsunnn.github.io/windows-server-2022-active-directory-homelab/).
+**Visual walkthrough:** read the [illustrated walkthrough](WALKTHROUGH.md) for the architecture diagrams, build timeline, access model, case studies, and screenshots on one page. An interactive version is on [GitHub Pages](https://zsunnn.github.io/windows-server-2022-active-directory-homelab/) (source: [`index.html`](index.html)).
 
 ## Skills demonstrated
 
@@ -103,7 +103,8 @@ The DHCP incident was particularly valuable: the client received an APIPA addres
 
 ## Repository guide
 
-- [`index.html`](index.html) — visual walkthrough of the lab (diagram, timeline, evidence)
+- [`WALKTHROUGH.md`](WALKTHROUGH.md) — illustrated tour of the lab (diagrams, timeline, evidence)
+- [`index.html`](index.html) — interactive version of the walkthrough for GitHub Pages
 - [`docs/`](docs/) — implementation and validation documentation
 - [`troubleshooting/`](troubleshooting/) — incident-style case studies
 - [`diagrams/`](diagrams/) — reusable Mermaid architecture diagrams
